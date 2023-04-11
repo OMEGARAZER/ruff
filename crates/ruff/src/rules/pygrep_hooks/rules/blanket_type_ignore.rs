@@ -1,6 +1,6 @@
 use once_cell::sync::Lazy;
 use regex::Regex;
-use ruff_text_size::TextRange;
+use ruff_text_size::{TextLen, TextRange, TextSize};
 use rustpython_parser::ast::Location;
 
 use ruff_diagnostics::{Diagnostic, Violation};
@@ -20,14 +20,11 @@ static BLANKET_TYPE_IGNORE_REGEX: Lazy<Regex> =
     Lazy::new(|| Regex::new(r"# type:? *ignore($|\s)").unwrap());
 
 /// PGH003 - use of blanket type ignore comments
-pub fn blanket_type_ignore(lineno: usize, line: &str) -> Option<Diagnostic> {
+pub fn blanket_type_ignore(range: TextRange, line: &str) -> Option<Diagnostic> {
     BLANKET_TYPE_IGNORE_REGEX.find(line).map(|m| {
         Diagnostic::new(
             BlanketTypeIgnore,
-            TextRange::new(
-                Location::new(lineno + 1, m.start()),
-                Location::new(lineno + 1, m.end()),
-            ),
+            TextRange::at(range.start(), m.as_str().text_len()),
         )
     })
 }

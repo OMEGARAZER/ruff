@@ -602,7 +602,7 @@ mod tests {
                 ..Settings::for_rule(Rule::UnsortedImports)
             },
         )?;
-        diagnostics.sort_by_key(|diagnostic| diagnostic.location);
+        diagnostics.sort_by_key(|diagnostic| diagnostic.start());
         assert_messages!(snapshot, diagnostics);
         Ok(())
     }
@@ -630,7 +630,7 @@ mod tests {
                 ..Settings::for_rule(Rule::UnsortedImports)
             },
         )?;
-        diagnostics.sort_by_key(|diagnostic| diagnostic.location);
+        diagnostics.sort_by_key(|diagnostic| diagnostic.start());
         assert_messages!(snapshot, diagnostics);
         Ok(())
     }
@@ -660,7 +660,7 @@ mod tests {
                 ..Settings::for_rule(Rule::UnsortedImports)
             },
         )?;
-        diagnostics.sort_by_key(|diagnostic| diagnostic.location);
+        diagnostics.sort_by_key(|diagnostic| diagnostic.start());
         assert_messages!(snapshot, diagnostics);
         Ok(())
     }
@@ -688,7 +688,7 @@ mod tests {
                 ..Settings::for_rule(Rule::UnsortedImports)
             },
         )?;
-        diagnostics.sort_by_key(|diagnostic| diagnostic.location);
+        diagnostics.sort_by_key(|diagnostic| diagnostic.start());
         assert_messages!(snapshot, diagnostics);
         Ok(())
     }
@@ -708,7 +708,7 @@ mod tests {
                 ..Settings::for_rule(Rule::UnsortedImports)
             },
         )?;
-        diagnostics.sort_by_key(|diagnostic| diagnostic.location);
+        diagnostics.sort_by_key(|diagnostic| diagnostic.start());
         assert_messages!(snapshot, diagnostics);
         Ok(())
     }
@@ -839,7 +839,7 @@ mod tests {
                 ..Settings::for_rule(Rule::UnsortedImports)
             },
         )?;
-        diagnostics.sort_by_key(|diagnostic| diagnostic.location);
+        diagnostics.sort_by_key(|diagnostic| diagnostic.start());
         assert_messages!(snapshot, diagnostics);
         Ok(())
     }
@@ -864,7 +864,7 @@ mod tests {
                 ..Settings::for_rule(Rule::UnsortedImports)
             },
         )?;
-        diagnostics.sort_by_key(|diagnostic| diagnostic.location);
+        diagnostics.sort_by_key(|diagnostic| diagnostic.start());
         assert_messages!(snapshot, diagnostics);
         Ok(())
     }
@@ -885,7 +885,7 @@ mod tests {
                 ..Settings::for_rule(Rule::UnsortedImports)
             },
         )?;
-        diagnostics.sort_by_key(|diagnostic| diagnostic.location);
+        diagnostics.sort_by_key(|diagnostic| diagnostic.start());
         assert_messages!(snapshot, diagnostics);
         Ok(())
     }
@@ -904,7 +904,7 @@ mod tests {
                 ..Settings::for_rule(Rule::UnsortedImports)
             },
         )?;
-        diagnostics.sort_by_key(|diagnostic| diagnostic.location);
+        diagnostics.sort_by_key(|diagnostic| diagnostic.start());
         assert_messages!(snapshot, diagnostics);
         Ok(())
     }

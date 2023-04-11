@@ -9,8 +9,7 @@ use rustc_hash::{FxHashMap, FxHashSet};
 use rustpython_common::cformat::{CFormatError, CFormatErrorType};
 use rustpython_parser::ast::{
     Arg, Arguments, Comprehension, Constant, Excepthandler, ExcepthandlerKind, Expr, ExprContext,
-    ExprKind, KeywordData, Located, Location, Operator, Pattern, PatternKind, Stmt, StmtKind,
-    Suite,
+    ExprKind, KeywordData, Located, Operator, Pattern, PatternKind, Stmt, StmtKind, Suite,
 };
 
 use ruff_diagnostics::Diagnostic;
@@ -3200,7 +3199,13 @@ where
                     }
 
                     if self.settings.rules.enabled(Rule::PrintfStringFormatting) {
-                        pyupgrade::rules::printf_string_formatting(self, expr, left, right);
+                        pyupgrade::rules::printf_string_formatting(
+                            self,
+                            expr,
+                            left,
+                            right,
+                            self.locator,
+                        );
                     }
                     if self.settings.rules.enabled(Rule::BadStringFormatType) {
                         pylint::rules::bad_string_format_type(self, expr, right);
@@ -5294,8 +5299,8 @@ impl<'a> Checker<'a> {
                     let expr = definition.docstring.unwrap();
                     let contents = self.locator.slice(expr.range());
                     let indentation = self.locator.slice(TextRange::new(
-                        Location::new(expr.start().row(), 0),
-                        Location::new(expr.start().row(), expr.start().column()),
+                        self.locator.line_start(expr.start()),
+                        expr.start(),
                     ));
 
                     if pydocstyle::helpers::should_ignore_docstring(contents) {
